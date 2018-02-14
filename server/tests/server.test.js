@@ -1,6 +1,5 @@
 const expect = require('expect');
 const request = require('supertest');
-
 const {ObjectID} = require('mongodb');
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
@@ -138,7 +137,7 @@ describe('DELETE /todos/:id',function () {
     });
 
 
-    
+
     it('should return 404 if object  not found',function (done) {
         var hexId = '1234';
         request(app)
