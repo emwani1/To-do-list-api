@@ -8,10 +8,13 @@ const todos = [
     {
         _id: new ObjectID(),
         text:"First test todo"
+
     },
     {
         _id: new ObjectID (),
-        text:"Second test todo"
+        text:"Second test todo",
+        completed:false,
+        completedAt:333
     }
 ];
 
@@ -138,13 +141,27 @@ describe('DELETE /todos/:id',function () {
 
 
 
-    it('should return 404 if object  not found',function (done) {
-        var hexId = '1234';
+
+});
+
+
+describe('PATCH /todos/:id',function () {
+    it('should update the todo',function (done) {
+        var id = todos[0]._id.toHexString();
+        var text = 'Update is made';
         request(app)
-            .delete(`/todos/${hexId}`)
-            .expect(404)
-            .end(done);
+            .patch(`/todos/${id}`)
+            .send({text,completed:true})
+            .send({text,completed:true})
+            .expect(200)
+            .expect(function (res) {
+                expect(res.body.todo.text).toBe(text)
+            })
+            .end(done)
 
 
     });
-});
+    // it('should clear completedAt when todo is not completed',function (done) {
+    //
+    // })
+})
